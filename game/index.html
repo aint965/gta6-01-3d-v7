@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#142d38">
+  <title>Palkon Auto · Solmar</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body data-screen="title">
+  <main id="world" aria-label="Solmar coastal city">
+    <canvas id="scene" aria-label="Interactive three-dimensional view of Solmar"></canvas>
+    <section id="title-screen" aria-label="Palkon Auto start screen">
+      <div class="title-content">
+        <p class="title-kicker"><span></span> AN ORIGINAL OPEN-WORLD STORY</p>
+        <h1 id="title-lettering" aria-label="PALKON AUTO"></h1>
+        <p class="title-subtitle">THE SOLMAR STORY</p>
+        <p class="title-tagline">The city has a price.<br>Find out who is paying.</p>
+        <nav class="title-menu" aria-label="Main menu">
+          <button id="title-continue" type="button" hidden><span>Continue</span><small>RETURN TO YOUR STORY</small></button>
+          <button id="title-new" type="button"><span>New Game</span><small>A RECEIPT. A CITY. A RECKONING.</small></button>
+          <button id="title-controls" type="button"><span>Controls</span><small>KNOW YOUR WAY AROUND</small></button>
+        </nav>
+      </div>
+      <div class="title-location"><span class="title-coordinate">27° N / REPUBLIC COAST</span><strong>SOLMAR</strong><span>SEVEN DISTRICTS. ONE SHARED SECRET.</span></div>
+      <footer class="title-footer"><span>PALKON AUTO / THE SOLMAR STORY</span><span>↑ ↓ SELECT &nbsp; · &nbsp; ENTER START &nbsp; · &nbsp; PROGRESS AUTOSAVES</span></footer>
+    </section>
+    <dialog id="controls" class="modal-card controls-card" aria-labelledby="controls-title">
+      <p class="modal-kicker">PALKON AUTO · FIELD GUIDE</p>
+      <h2 id="controls-title">Know the streets</h2>
+      <dl class="controls-list">
+        <div><dt>W A S D</dt><dd>Walk; accelerate, brake / reverse and steer in a car</dd></div>
+        <div><dt>↑ ↓ ← →</dt><dd>Drive; ↑ / ↓ also walk forward / backward</dd></div>
+        <div><dt>SHIFT</dt><dd>Run on foot</dd></div>
+        <div><dt>E</dt><dd>Enter a nearby stopped car / exit at low speed</dd></div>
+        <div><dt>Q / X</dt><dd>Interact with a gold mission objective / drop evidence</dd></div>
+        <div><dt>J / F</dt><dd>Punch combo / take down a nearby opponent</dd></div>
+        <div><dt>SPACE</dt><dd>Dodge on foot / handbrake while driving</dd></div>
+        <div><dt>G</dt><dd>Open a nearby teal garage; Tab / arrows select, Enter buys</dd></div>
+        <div><dt>R / M</dt><dd>Cycle the three radio stations / mute audio</dd></div>
+        <div><dt>DRAG / SCROLL</dt><dd>Orbit the camera / zoom</dd></div>
+        <div><dt>1 / 2 / 3 · N</dt><dd>Day / sunset / night; N also selects night</dd></div>
+        <div><dt>DISTRICT TABS</dt><dd>Travel to a district on foot</dd></div>
+        <div><dt>ESC</dt><dd>Pause / resume; close the garage or this guide</dd></div>
+      </dl>
+      <button id="controls-close" type="button">Back · Esc</button>
+    </dialog>
+    <div class="topline"><span class="brand">PALKON <b>AUTO</b></span><span class="location">SOLMAR · REPUBLIC COAST</span><button id="pause-open" type="button">PAUSE · ESC</button></div>
+    <nav class="districts" aria-label="Solmar districts">
+      <button type="button" data-x="-1000" data-z="520">Old Solmar</button>
+      <button type="button" data-x="-620" data-z="10">Canal Ward</button>
+      <button type="button" data-x="70" data-z="610">South Market</button>
+      <button type="button" data-x="-980" data-z="-720">Citrus Quarter</button>
+      <button type="button" data-x="1450" data-z="170">Pearl Marina</button>
+      <button type="button" data-x="640" data-z="-300">Glasspoint</button>
+      <button type="button" data-x="-1600" data-z="360">Sunstrand Beach</button>
+    </nav>
+    <section class="place"><p class="eyebrow">SOLMAR / COASTAL CITY</p><h1 id="district">Glasspoint</h1><p id="clock">12:18 PM · SCORCHING CLEAR</p></section>
+    <div class="mode" role="group" aria-label="Lighting">
+      <button id="day" type="button" aria-pressed="true">Day</button><button id="sunset" type="button" aria-pressed="false">Sunset</button><button id="night" type="button" aria-pressed="false">Night</button>
+    </div>
+    <aside class="map-panel" aria-label="Navigation"><canvas id="minimap" width="224" height="224" aria-label="City minimap with player heading and nearby vehicles"></canvas><div class="map-caption">SOLMAR <span>LOCAL STREETS / N ↑</span></div></aside>
+    <div class="mission-hud"><div class="mission-heading"><strong id="mission-name">A Receipt for Sunshine</strong><span id="cash">$0</span></div><div class="objective"><i></i><span id="objective-text">Deliver the extortion receipt to Neri at the Canal Ward print shop · Q</span></div><div class="mission-status"><span id="mission-timer"></span><span id="cargo-status"></span><span id="health-status">HEALTH 100</span></div></div>
+    <div class="compass" aria-label="Objective direction"><span id="compass-arrow">↑</span><small id="compass-distance">OBJECTIVE</small></div>
+    <div id="boundary-label" class="boundary-label">OPERATION LIMIT · STAY INSIDE THE MARKED AREA</div>
+    <section class="drive-hud" aria-label="Vehicle information"><div id="vehicle-name">Coastal courier</div><div class="speed-row"><strong id="speed">ON FOOT</strong><span id="speed-unit">MARA VENN</span></div><p id="interaction">Find a parked car · E to enter</p></section>
+    <aside class="city-hud" aria-label="City status">
+      <div class="wanted-row"><span id="wanted-stars" aria-label="0 of 5 wanted stars">☆☆☆☆☆</span><span id="heat-status">NO ACTIVE WARRANT</span></div>
+      <div id="arrest-status" hidden><label for="arrest-meter">ARREST IN PROGRESS</label><progress id="arrest-meter" max="2.5" value="0"></progress></div>
+      <div class="radio-row"><strong id="radio-station">Breakwater 88</strong><button id="radio-mute" type="button">Mute · M</button></div>
+      <div id="radio-caption">Surf instrumentals</div>
+      <div id="city-notice" aria-live="polite" hidden></div>
+    </aside>
+    <div class="legend"><i></i> <span>WASD travel · E vehicle · Q mission · J punch · Space dodge / brake · F takedown · G garage · R radio · Esc pause</span></div>
+    <section id="modal" class="modal" hidden aria-live="polite">
+      <div class="modal-card">
+        <p id="modal-kicker" class="modal-kicker">SOLMAR · COURIER DOSSIER</p>
+        <h2 id="modal-title">Pause</h2>
+        <p id="modal-copy" class="modal-copy"></p>
+        <div id="modal-actions" class="modal-actions"></div>
+        <div class="menu-columns">
+          <section><h3>MISSIONS</h3><div id="mission-list" class="mission-list"></div></section>
+          <section><h3>EVIDENCE LOG</h3><ol id="evidence-log" class="evidence-log"></ol></section>
+        </div>
+        <p class="modal-controls">WASD travel · E enter / exit vehicle · Q interact · X drop carried evidence · Esc resume</p>
+      </div>
+    </section>
+    <dialog id="garage" aria-labelledby="garage-title" class="modal-card garage-card">
+      <p class="modal-kicker">SOLMAR · GARAGE</p>
+      <h2 id="garage-title">Motor Works</h2>
+      <p id="garage-status" role="status"></p>
+      <div class="garage-grid">
+        <section><h3>VEHICLES</h3><div id="garage-stock"></div><button type="button" id="garage-repair"></button></section>
+        <section><h3>PAINTS</h3><div id="garage-paints"></div></section>
+      </div>
+      <button type="button" id="garage-close">Return to street · Esc</button>
+    </dialog>
+    <div id="error" role="alert"></div>
+  </main>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

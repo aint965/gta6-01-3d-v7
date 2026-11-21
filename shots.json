@@ -1,0 +1,6 @@
+[
+  { "name": "1-title.jpg", "query": "?verify=stageF", "action": "Return to the title after saving to show the full menu over the living sunset city" },
+  { "name": "2-driving-day.jpg", "query": "?verify=stageF", "action": "Drive Mara's Pico in daylight with E and W; show city traffic, minimap and driving HUD" },
+  { "name": "3-mission.jpg", "query": "?verify=stageF", "action": "Approach the Glass Debt office beacon with the mission HUD and minimap visible" },
+  { "name": "4-night-pursuit.jpg", "query": "?verify=stageF", "action": "Frame Mara's car under a warrant at night with its headlights illuminating asphalt and the car ahead" }
+]
